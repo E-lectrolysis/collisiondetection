@@ -10,6 +10,13 @@ public class Node<T> {
     private int x,y;
     private int xBound, yBound;
 
+    /**
+     * Constructor for node
+     * @param x x location
+     * @param y y location
+     * @param xBound x boundary
+     * @param yBound y boundary
+     */
     public Node(int x, int y, int xBound, int yBound) {
         this.x = x;
         this.y = y;
@@ -25,7 +32,9 @@ public class Node<T> {
     3 4
      */
 
-
+    /**
+     * creates 4 children nodes
+     */
     public void addChildren() {
         this.children.add(new Node((xBound+x)/2,y,xBound,(yBound+y)/2)); //1
         this.children.add(new Node(x,y,(xBound+x)/2,(yBound+y)/2)); //2
@@ -34,7 +43,9 @@ public class Node<T> {
     }
 
 
-
+    /**
+     * updates
+     */
     public void update() {
         if(this.listOfStuff.size() > 10 && this.children.size() < 4) {
             addChildren();
@@ -43,6 +54,10 @@ public class Node<T> {
         }
     }
 
+    /**
+     * draws the quadrant
+     * @param g paintComponent graphics
+     */
     public void draw(Graphics g) {
         g.drawRect(x,y,xBound-x,yBound-y);
     }
@@ -85,31 +100,16 @@ public class Node<T> {
         return x;
     }
 
-    public void setX(int x) {
-        this.x = x;
-    }
-
     public int getY() {
         return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
     }
 
     public int getxBound() {
         return xBound;
     }
 
-    public void setxBound(int xBound) {
-        this.xBound = xBound;
-    }
-
     public int getyBound() {
         return yBound;
     }
 
-    public void setyBound(int yBound) {
-        this.yBound = yBound;
-    }
 }

@@ -9,58 +9,42 @@ public class Quadrants<T> {
     private int screenHeight = DisplayFrame.getScreenHeight();
     private int screenWidth = DisplayFrame.getScreenWidth();
 
-    Quadrants(ArrayList<T> o) {
-        root = new Node<T>(0,0,screenHeight,screenWidth);
-        root.setListOfStuff(o);
-    }
 
+    /**
+     * Constructor for Quadrants
+     */
     Quadrants() {
         root = new Node<T>(0,0,screenHeight,screenWidth);
         allTheItems = new ArrayList<T>();
     }
 
-    public void setAllTheItems(ArrayList<T> items) {
-        this.allTheItems = items;
-        insertItemsIntoNodes();
-    }
 
+    /**
+     * adds an item into the list
+     * @param item the item to add
+     */
     public void addItem(T item) {
         this.allTheItems.add(item);
         insertItemsIntoNodes();
     }
 
-    /**
-     * Removes the specified item from the entire tree
-     * @param item the item to be removed
-     * @param n the current node
-     */
-    public void remove(T item, Node n) {
-        this.allTheItems.remove(item);
-        n.getListOfStuff().remove(item);
-        if(n.getChildren().size() == 4) {
-            for(int i = 0; i < n.getChildren().size(); i++) {
-                remove(item, n.getChild(i));
-            }
-        }
-    }
 
+
+    /**
+     * @param index the index of the item to remove
+     */
     public void remove(int index) {
         this.allTheItems.remove(index);
     }
 
 
+
     /**
-     * updates every single node
-     * @param n the node
-     * @param g
+     * updates the nodes, going through all of them recursively
+     * @param n the node to update
+     * @param g paintComponent graphics
      */
     public void update(Node<T> n, Graphics g) {
-
-        updateNodes(n,g);
-
-    }
-
-    public void updateNodes(Node<T> n,Graphics g) {
 
         Node tempNode = n;
         tempNode.update();
@@ -68,19 +52,32 @@ public class Quadrants<T> {
 
         if(tempNode.getChildren().size() == 4) {
             for(int i = 0; i < 4; i++) {
-                updateNodes(tempNode.getChild(i),g);
+                update(tempNode.getChild(i),g);
             }
         }
     }
 
+
+    /**
+     * gets the entire list of items
+     * @return ArrayList of all the items
+     */
     public ArrayList<T> getAllTheItems() {
         return allTheItems;
     }
 
+    /**
+     * sets the list of all the items
+     */
     private void insertItemsIntoNodes() {
         root.setListOfStuff(allTheItems);
     }
 
+
+    /**
+     * gets the root node
+     * @return the root node
+     */
     public Node<T> getRoot() {
         return root;
     }

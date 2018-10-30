@@ -1,15 +1,16 @@
-/**
- * This template can be used as reference or a starting point for the Shape Game
- * for your final summative project
- * @author Mangat
- **/
+/*
+ * Collision Detection
+ * A Program that uses a quad tree to detect collisions
+ * @author Eric Ke
+ * 10/30/2018
+ *
+ */
 
 //Graphics &GUI imports
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Toolkit;
 import java.awt.Graphics;
-import java.awt.Color;
 
 //Keyboard imports
 import java.awt.event.KeyEvent;
@@ -50,8 +51,8 @@ public class DisplayFrame extends JFrame {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize((int)(1000*scaleRatio),(int)(1000*scaleRatio));
 
-        gamePanel = new GameAreaPanel();
-        this.add(new GameAreaPanel());
+        gamePanel = new DisplayPanel();
+        this.add(new DisplayPanel());
 
         MyKeyListener keyListener = new MyKeyListener();
         this.addKeyListener(keyListener);
@@ -65,11 +66,8 @@ public class DisplayFrame extends JFrame {
     } //End of Constructor
 
 
-
-    /** --------- INNER CLASSES ------------- **/
-
-    // Inner class for the the game area - This is where all the drawing of the screen occurs
-    private class GameAreaPanel extends JPanel {
+    //inner classes
+    private class DisplayPanel extends JPanel {
 
         Clock clock = new Clock();
 
@@ -132,6 +130,11 @@ public class DisplayFrame extends JFrame {
 
         }
 
+
+        /**
+         * Inserts balls into their proper node
+         * @param a a node of bouncing balls
+         */
         public void insertBalls(Node<BouncingBall> a) {
             Node<BouncingBall> tempNode = a;
             ArrayList<BouncingBall> balls = quadrants.getAllTheItems();
@@ -179,8 +182,6 @@ public class DisplayFrame extends JFrame {
 
     }
 
-
-    // -----------  Inner class for the keyboard listener - this detects key presses and runs the corresponding code
     private class MyKeyListener implements KeyListener {
 
         public void keyTyped(KeyEvent e) {
