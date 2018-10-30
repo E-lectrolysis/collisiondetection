@@ -95,12 +95,12 @@ public class DisplayFrame extends JFrame {
             cleanseBalls(a);
             insertBalls(a);
             drawStuff(a, g);
-            updateNodes(a, g);
+            updateNodes(a);
 
 
         }
 
-        public void updateNodes(Node<BouncingBall> a, Graphics g) {
+        public void updateNodes(Node<BouncingBall> a) {
 
             Node<BouncingBall> tempNode = a;
 
@@ -108,7 +108,7 @@ public class DisplayFrame extends JFrame {
                 doCollisionCheck(a);
             } else {
                 for(int i = 0; i < 4; i++) {
-                    updateNodes(a.getChild(i), g);
+                    updateNodes(a.getChild(i));
                 }
             }
         }
