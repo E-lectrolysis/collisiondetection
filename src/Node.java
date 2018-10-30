@@ -68,4 +68,40 @@ public class Node<T> {
     public ArrayList<Node<T>> getChildren() {
         return children;
     }
+
+    public void setChildren(ArrayList<Node<T>> children) {
+        this.children = children;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    public int getxBound() {
+        return xBound;
+    }
+
+    public void setxBound(int xBound) {
+        this.xBound = xBound;
+    }
+
+    public int getyBound() {
+        return yBound;
+    }
+
+    public void setyBound(int yBound) {
+        this.yBound = yBound;
+    }
 }

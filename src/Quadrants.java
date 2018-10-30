@@ -47,6 +47,10 @@ public class Quadrants<T> {
         }
     }
 
+    public ArrayList<T> getAllTheItems() {
+        return allTheItems;
+    }
+
     private void insertItemsIntoNodes() {
         root.setListOfStuff(allTheItems);
     }

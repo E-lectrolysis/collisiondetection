@@ -44,7 +44,6 @@ public class DisplayFrame extends JFrame {
     }
 
 
-    //Constructor - this runs first
     DisplayFrame() {
         super("Balls");
 
@@ -104,10 +103,43 @@ public class DisplayFrame extends JFrame {
 
             quadrants.update(a, g);
 
-            if(tempNode.getChildren().size() > -1) {
+            if(tempNode.getChildren().size() < 1) {
                 doCollisionCheck(a);
                 drawStuff(a, g);
             }
+
+        }
+
+        /**
+         * Removes balls from a specific quadrant
+         * @param a
+         */
+        public void cleanseBalls(Node<BouncingBall> a) {
+            Node<BouncingBall> tempNode = a;
+            ArrayList<BouncingBall> balls = a.getListOfStuff();
+
+            for(int i = 0; i < balls.size(); i++) {
+                if((balls.get(i).getxPos() > a.getxBound() || balls.get(i).getxPos() < a.getX()) &&(balls.get(i).getxPos() > a.getyBound() || balls.get(i).getyPos() < a.getY())) {
+                    balls.remove(i);
+                }
+            }
+
+            if(a.getChildren().size() == 4) {
+                for(int i = 0; i < balls.size(); i++) {
+                    cleanseBalls(a.getChildren().get(i));
+                }
+            }
+
+        }
+
+        public void insertBalls(Node<BouncingBall> a) {
+            Node<BouncingBall> tempNode = a;
+            ArrayList<BouncingBall> balls = quadrants.getAllTheItems();
+
+            for(int i = 0; i < balls.size(); i++) {
+
+            }
+
 
         }
 
@@ -123,6 +155,7 @@ public class DisplayFrame extends JFrame {
             }
 
         }
+
 
         public void drawStuff(Node<BouncingBall> a, Graphics g) {
 
