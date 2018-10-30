@@ -36,9 +36,9 @@ public class Node<T> {
 
 
     public void update() {
-        if(listOfStuff.size() > 10 && children.size() != 4) {
+        if(this.listOfStuff.size() > 10 && children.size() != 4) {
             addChildren();
-        } else if (listOfStuff.size() < 10 && children != null) {
+        } else if (this.listOfStuff.size() < 10 && children != null) {
             clearChildren();
         }
     }
@@ -57,6 +57,10 @@ public class Node<T> {
         this.listOfStuff.add(item);
     }
 
+    public void removeItem(T item) {
+        this.listOfStuff.remove(item);
+    }
+
     public ArrayList<T> getListOfStuff() {
         return listOfStuff;
     }
@@ -67,6 +71,10 @@ public class Node<T> {
 
     public ArrayList<Node<T>> getChildren() {
         return children;
+    }
+
+    public Node<T> getChild(int index) {
+        return children.get(index);
     }
 
     public void setChildren(ArrayList<Node<T>> children) {

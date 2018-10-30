@@ -47,19 +47,9 @@ public class DisplayFrame extends JFrame {
     DisplayFrame() {
         super("Balls");
 
-        //create enemies and player
-
-        //spawn 5 eneimies
-
-        // Set the frame to full screen
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize((int)(1000*scaleRatio),(int)(1000*scaleRatio));
-        // this.setUndecorated(true);  //Set to true to remove title bar
-        //frame.setResizable(false);
 
-
-
-        //Set up the game panel (where we put our graphics)
         gamePanel = new GameAreaPanel();
         this.add(new GameAreaPanel());
 
@@ -102,17 +92,30 @@ public class DisplayFrame extends JFrame {
             Node<BouncingBall> tempNode = a;
 
             quadrants.update(a, g);
+            cleanseBalls(a);
+            insertBalls(a);
+            drawStuff(a, g);
+            updateNodes(a, g);
 
-            if(tempNode.getChildren().size() < 1) {
+
+        }
+
+        public void updateNodes(Node<BouncingBall> a, Graphics g) {
+
+            Node<BouncingBall> tempNode = a;
+
+            if(tempNode.getChildren().size() != 4) {
                 doCollisionCheck(a);
-                drawStuff(a, g);
+            } else {
+                for(int i = 0; i < 4; i++) {
+                    updateNodes(a.getChild(i), g);
+                }
             }
-
         }
 
         /**
          * Removes balls from a specific quadrant
-         * @param a
+         * @param a a node of bouncing balls
          */
         public void cleanseBalls(Node<BouncingBall> a) {
             Node<BouncingBall> tempNode = a;
@@ -124,9 +127,9 @@ public class DisplayFrame extends JFrame {
                 }
             }
 
-            if(a.getChildren().size() == 4) {
-                for(int i = 0; i < balls.size(); i++) {
-                    cleanseBalls(a.getChildren().get(i));
+            if(tempNode.getChildren().size() == 4) {
+                for(int i = 0; i < 4; i++) {
+                    cleanseBalls(a.getChild(i));
                 }
             }
 
@@ -137,7 +140,17 @@ public class DisplayFrame extends JFrame {
             ArrayList<BouncingBall> balls = quadrants.getAllTheItems();
 
             for(int i = 0; i < balls.size(); i++) {
+                if((balls.get(i).getxPos() <= a.getxBound() || balls.get(i).getxPos() >= a.getX()) &&(balls.get(i).getxPos() <= a.getyBound() || balls.get(i).getyPos() >= a.getY())) {
+                    if(!a.getListOfStuff().contains(balls.get(i))) {
+                        a.addItem(balls.get(i));
+                    }
+                }
+            }
 
+            if(a.getChildren().size() == 4) {
+                for(int i = 0; i < 4; i++) {
+                    insertBalls(tempNode.getChild(i));
+                }
             }
 
 
@@ -180,7 +193,8 @@ public class DisplayFrame extends JFrame {
             //System.out.println("keyPressed="+KeyEvent.getKeyText(e.getKeyCode()));
 
             if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {
-                quadrants.addItem(new BouncingBall());//If 'D' is pressed
+                quadrants.addItem(new BouncingBall());
+                System.out.println("Aaaa");//If 'D' is pressed
 
             } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
                 System.out.println("Quitting!"); //close frame & quit

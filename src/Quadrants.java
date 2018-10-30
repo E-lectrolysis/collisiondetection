@@ -29,21 +29,43 @@ public class Quadrants<T> {
         insertItemsIntoNodes();
     }
 
-    public void update(Node<T> n, Graphics g) {
-        Node tempNode = n;
+    /**
+     * Removes the specified item from the entire tree
+     * @param item the item to be removed
+     * @param n the current node
+     */
+    public void remove(T item, Node n) {
+        n.getListOfStuff().remove(item);
+        if(n.getChildren().size() == 4) {
+            for(int i = 0; i < n.getChildren().size(); i++) {
+                remove(item, n.getChild(i));
+            }
+        }
+    }
 
-        n.draw(g);
+
+    /**
+     * updates every single node
+     * @param n the node
+     * @param g
+     */
+    public void update(Node<T> n, Graphics g) {
 
         n.update();
+        updateNodes(n,g);
 
-        if(n.getChildren() != null) {
-            ArrayList<Node<T>> children = n.getChildren();
+
+    }
+
+    public void updateNodes(Node<T> n,Graphics g) {
+
+        Node tempNode = n;
+        n.draw(g);
+
+        if(n.getChildren().size() == 4) {
             for(int i = 0; i < tempNode.getChildren().size(); i++) {
-                update((Node<T>) tempNode.getChildren().get(i),g);
-
+                updateNodes(tempNode.getChild(i),g);
             }
-        } else {
-            return;
         }
     }
 
