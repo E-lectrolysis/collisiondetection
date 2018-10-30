@@ -35,12 +35,17 @@ public class Quadrants<T> {
      * @param n the current node
      */
     public void remove(T item, Node n) {
+        this.allTheItems.remove(item);
         n.getListOfStuff().remove(item);
         if(n.getChildren().size() == 4) {
             for(int i = 0; i < n.getChildren().size(); i++) {
                 remove(item, n.getChild(i));
             }
         }
+    }
+
+    public void remove(int index) {
+        this.allTheItems.remove(index);
     }
 
 
@@ -58,8 +63,8 @@ public class Quadrants<T> {
     public void updateNodes(Node<T> n,Graphics g) {
 
         Node tempNode = n;
-        tempNode.draw(g);
         tempNode.update();
+        tempNode.draw(g);
 
         if(tempNode.getChildren().size() == 4) {
             for(int i = 0; i < 4; i++) {

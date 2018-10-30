@@ -27,10 +27,10 @@ public class Node<T> {
 
 
     public void addChildren() {
-        this.children.add(new Node(xBound/2,y,xBound,yBound/2)); //1
-        this.children.add(new Node(x,y,xBound/2,yBound/2)); //2
-        this.children.add(new Node(x,yBound/2, xBound/2, yBound));//3
-        this.children.add(new Node(xBound/2, yBound/2, xBound, yBound)); //4
+        this.children.add(new Node((xBound+x)/2,y,xBound,(yBound+y)/2)); //1
+        this.children.add(new Node(x,y,(xBound+x)/2,(yBound+y)/2)); //2
+        this.children.add(new Node(x,(yBound+y)/2, (xBound+x)/2, yBound));//3
+        this.children.add(new Node((xBound+x)/2, (yBound+y)/2, xBound, yBound)); //4
     }
 
 
@@ -44,7 +44,7 @@ public class Node<T> {
     }
 
     public void draw(Graphics g) {
-        g.drawRect(x,y,xBound,yBound);
+        g.drawRect(x,y,xBound-x,yBound-y);
     }
 
 

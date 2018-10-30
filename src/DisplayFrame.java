@@ -82,8 +82,6 @@ public class DisplayFrame extends JFrame {
             clock.update();
             update(quadrants.getRoot(), g);
 
-            g.drawRect(0,0, getScreenWidth(), getScreenHeight());
-
             //repaint
             repaint();
         }
@@ -121,7 +119,7 @@ public class DisplayFrame extends JFrame {
             ArrayList<BouncingBall> balls = a.getListOfStuff();
 
             for(int i = 0; i < balls.size(); i++) {
-                if((balls.get(i).getxPos() > a.getxBound() || balls.get(i).getxPos() < a.getX()) &&(balls.get(i).getxPos() > a.getyBound() || balls.get(i).getyPos() < a.getY())) {
+                if((balls.get(i).getxPos() > a.getxBound() || balls.get(i).getxPos() < a.getX()) &&(balls.get(i).getyPos() > a.getyBound() || balls.get(i).getyPos() < a.getY())) {
                     balls.remove(i);
                 }
             }
@@ -139,7 +137,7 @@ public class DisplayFrame extends JFrame {
             ArrayList<BouncingBall> balls = quadrants.getAllTheItems();
 
             for(int i = 0; i < balls.size(); i++) {
-                if((balls.get(i).getxPos() <= tempNode.getxBound() && balls.get(i).getxPos() >= tempNode.getX()) &&(balls.get(i).getxPos() <= tempNode.getyBound() && balls.get(i).getyPos() >= tempNode.getY())) {
+                if((balls.get(i).getxPos() <= tempNode.getxBound() && balls.get(i).getxPos() >= tempNode.getX()) &&(balls.get(i).getyPos() <= tempNode.getyBound() && balls.get(i).getyPos() >= tempNode.getY())) {
                     if(!tempNode.getListOfStuff().contains(balls.get(i))) {
                         tempNode.addItem(balls.get(i));
                     }
@@ -198,6 +196,10 @@ public class DisplayFrame extends JFrame {
             } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
                 System.out.println("Quitting!"); //close frame & quit
                 window.dispose();
+
+            } else if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {
+                quadrants.remove(0);
+                System.out.println("Aaaa");//If 'D' is pressed
 
             }
         }
