@@ -89,7 +89,6 @@ public class DisplayFrame extends JFrame {
         }
 
         public void update(Node<BouncingBall> a, Graphics g) {
-            Node<BouncingBall> tempNode = a;
 
             quadrants.update(a, g);
             cleanseBalls(a);
@@ -140,9 +139,9 @@ public class DisplayFrame extends JFrame {
             ArrayList<BouncingBall> balls = quadrants.getAllTheItems();
 
             for(int i = 0; i < balls.size(); i++) {
-                if((balls.get(i).getxPos() <= a.getxBound() || balls.get(i).getxPos() >= a.getX()) &&(balls.get(i).getxPos() <= a.getyBound() || balls.get(i).getyPos() >= a.getY())) {
-                    if(!a.getListOfStuff().contains(balls.get(i))) {
-                        a.addItem(balls.get(i));
+                if((balls.get(i).getxPos() <= tempNode.getxBound() && balls.get(i).getxPos() >= tempNode.getX()) &&(balls.get(i).getxPos() <= tempNode.getyBound() && balls.get(i).getyPos() >= tempNode.getY())) {
+                    if(!tempNode.getListOfStuff().contains(balls.get(i))) {
+                        tempNode.addItem(balls.get(i));
                     }
                 }
             }

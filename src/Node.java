@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Node<T> {
 
-    private ArrayList<T> listOfStuff = new ArrayList<T>();
-    private ArrayList<Node<T>> children = new ArrayList<Node<T>>();
+    private ArrayList<T> listOfStuff;
+    private ArrayList<Node<T>> children;
 
     private int x,y;
     private int xBound, yBound;
@@ -15,6 +15,8 @@ public class Node<T> {
         this.y = y;
         this.xBound = xBound;
         this.yBound = yBound;
+        this.listOfStuff = new ArrayList<T>();
+        this.children = new ArrayList<Node<T>>();
     }
 
 
@@ -25,8 +27,6 @@ public class Node<T> {
 
 
     public void addChildren() {
-        this.children = new ArrayList<Node<T>>();
-
         this.children.add(new Node(xBound/2,y,xBound,yBound/2)); //1
         this.children.add(new Node(x,y,xBound/2,yBound/2)); //2
         this.children.add(new Node(x,yBound/2, xBound/2, yBound));//3
@@ -36,9 +36,9 @@ public class Node<T> {
 
 
     public void update() {
-        if(this.listOfStuff.size() > 10 && children.size() != 4) {
+        if(this.listOfStuff.size() > 10 && this.children.size() < 4) {
             addChildren();
-        } else if (this.listOfStuff.size() < 10 && children != null) {
+        } else if (this.listOfStuff.size() < 10 && this.children != null) {
             clearChildren();
         }
     }

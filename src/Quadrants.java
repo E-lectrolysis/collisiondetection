@@ -51,9 +51,7 @@ public class Quadrants<T> {
      */
     public void update(Node<T> n, Graphics g) {
 
-        n.update();
         updateNodes(n,g);
-
 
     }
 
@@ -61,9 +59,10 @@ public class Quadrants<T> {
 
         Node tempNode = n;
         tempNode.draw(g);
+        tempNode.update();
 
         if(tempNode.getChildren().size() == 4) {
-            for(int i = 0; i < 4d; i++) {
+            for(int i = 0; i < 4; i++) {
                 updateNodes(tempNode.getChild(i),g);
             }
         }
