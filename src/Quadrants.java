@@ -46,13 +46,12 @@ public class Quadrants<T> {
      */
     public void update(Node<T> n, Graphics g) {
 
-        Node tempNode = n;
-        tempNode.update();
-        tempNode.draw(g);
+        n.update();
+        n.draw(g);
 
-        if(tempNode.getChildren().size() == 4) {
+        if(((Node) n).getChildren().size() == 4) {
             for(int i = 0; i < 4; i++) {
-                update(tempNode.getChild(i),g);
+                update(n.getChild(i),g); //call method within itself to go through them and update them individually
             }
         }
     }

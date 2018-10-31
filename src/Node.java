@@ -36,10 +36,10 @@ public class Node<T> {
      * creates 4 children nodes
      */
     public void addChildren() {
-        this.children.add(new Node((xBound+x)/2,y,xBound,(yBound+y)/2)); //1
-        this.children.add(new Node(x,y,(xBound+x)/2,(yBound+y)/2)); //2
-        this.children.add(new Node(x,(yBound+y)/2, (xBound+x)/2, yBound));//3
-        this.children.add(new Node((xBound+x)/2, (yBound+y)/2, xBound, yBound)); //4
+        this.children.add(new Node<T>((xBound+x)/2,y,xBound,(yBound+y)/2)); //1
+        this.children.add(new Node<T>(x,y,(xBound+x)/2,(yBound+y)/2)); //2
+        this.children.add(new Node<T>(x,(yBound+y)/2, (xBound+x)/2, yBound));//3
+        this.children.add(new Node<T>((xBound+x)/2, (yBound+y)/2, xBound, yBound)); //4
     }
 
 
@@ -55,7 +55,7 @@ public class Node<T> {
     }
 
     /**
-     * draws the quadrant
+     * draws the node on the screen
      * @param g paintComponent graphics
      */
     public void draw(Graphics g) {
@@ -63,51 +63,91 @@ public class Node<T> {
     }
 
 
+    /**
+     * clears out the children
+     */
     public void clearChildren() {
         this.children.clear();
         this.children = new ArrayList<Node<T>>();
     }
 
+    /**
+     * adds an item into the list
+     * @param item the item to be added
+     */
     public void addItem(T item) {
         this.listOfStuff.add(item);
     }
 
+    /**
+     * removes a specific item
+     * @param item the item to be removed
+     */
     public void removeItem(T item) {
         this.listOfStuff.remove(item);
     }
 
+    /**
+     * gets the items in the node
+     * @return ArrayList of items in node
+     */
     public ArrayList<T> getListOfStuff() {
         return listOfStuff;
     }
 
+    /**
+     * sets list of stuff
+     * @param items sets list of stuff as this
+     */
     public void setListOfStuff(ArrayList<T> items) {
         this.listOfStuff = items;
     }
 
+    /**
+     * gets the children nodes
+     * @return an ArrayList of children nodes
+     */
     public ArrayList<Node<T>> getChildren() {
         return children;
     }
 
+    /**
+     * gets a specific child node
+     * @param index the index of the child node
+     * @return the child node
+     */
     public Node<T> getChild(int index) {
         return children.get(index);
     }
 
-    public void setChildren(ArrayList<Node<T>> children) {
-        this.children = children;
-    }
-
+    /**
+     * gets the x coordinate of the node
+     * @return the x coordinate
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * gets the y coordinate of the node
+     * @return the y coordinate
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * gets the x boundary of the node
+     * @return the x boundary
+     */
     public int getxBound() {
         return xBound;
     }
 
+    /**
+     * gets the y boundary of the node
+     * @return the y boundary
+     */
     public int getyBound() {
         return yBound;
     }

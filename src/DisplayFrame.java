@@ -1,12 +1,3 @@
-/*
- * Collision Detection
- * A Program that uses a quad tree to detect collisions
- * @author Eric Ke
- * 10/30/2018
- *
- */
-
-//Graphics &GUI imports
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Toolkit;
@@ -25,33 +16,38 @@ public class DisplayFrame extends JFrame {
 
     //class variables
     private static JFrame window;
-    private JPanel gamePanel;
+    private JPanel displayPanel;
     private static double scaleRatio = Toolkit.getDefaultToolkit().getScreenSize().getWidth()/1920;
-    private Quadrants<BouncingBall> quadrants = new Quadrants<BouncingBall>();
+    private Quadrants<BouncingBall> quadrants;
 
 
+    /**
+     * gets the height of the window
+     * @return the window height
+     */
     public static int getScreenHeight() {
         return (int)(1000*scaleRatio);
     }
 
+    /**
+     * gets the width of the window
+     * @return the window width
+     */
     public static int getScreenWidth() {
         return (int)(1000*scaleRatio);
     }
 
 
-    //Main
-    public static void main(String[] args) {
-        window = new DisplayFrame();
-    }
-
-
+    /**
+     * Creates a new window to display the graphics
+     */
     DisplayFrame() {
         super("Balls");
 
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.setSize((int)(1000*scaleRatio),(int)(1000*scaleRatio));
 
-        gamePanel = new DisplayPanel();
+        displayPanel = new DisplayPanel();
         this.add(new DisplayPanel());
 
         MyKeyListener keyListener = new MyKeyListener();
@@ -62,21 +58,25 @@ public class DisplayFrame extends JFrame {
         this.setVisible(true);
 
 
-
+        quadrants = new Quadrants<BouncingBall>();
     } //End of Constructor
 
 
     //inner classes
     private class DisplayPanel extends JPanel {
 
-        Clock clock = new Clock();
+        Clock clock = new Clock(); //clock for determining time
 
 
+        /**
+         * Draws the graphics on the screen
+         * @param g the graphics to draw with
+         */
         public void paintComponent(Graphics g) {
             super.paintComponent(g); //required
             setDoubleBuffered(true);
 
-            //move enemies
+            //update things
             clock.update();
             update(quadrants.getRoot(), g);
 
@@ -84,7 +84,12 @@ public class DisplayFrame extends JFrame {
             repaint();
         }
 
-        public void update(Node<BouncingBall> a, Graphics g) {
+        /**
+         * updates everything
+         * @param a the node
+         * @param g paintComponent graphics
+         */
+        private void update(Node<BouncingBall> a, Graphics g) {
 
             quadrants.update(a, g);
             cleanseBalls(a);
@@ -95,7 +100,11 @@ public class DisplayFrame extends JFrame {
 
         }
 
-        public void updateNodes(Node<BouncingBall> a) {
+        /**
+         * does a collision check for balls if the node has no children
+         * @param a
+         */
+        private void updateNodes(Node<BouncingBall> a) {
 
             Node<BouncingBall> tempNode = a;
 
@@ -109,14 +118,15 @@ public class DisplayFrame extends JFrame {
         }
 
         /**
-         * Removes balls from a specific quadrant
+         * Removes out of bound balls from nodes
          * @param a a node of bouncing balls
          */
-        public void cleanseBalls(Node<BouncingBall> a) {
+        private void cleanseBalls(Node<BouncingBall> a) {
             Node<BouncingBall> tempNode = a;
             ArrayList<BouncingBall> balls = a.getListOfStuff();
 
             for(int i = 0; i < balls.size(); i++) {
+                //checks if out of bounds, if so, removes ball from specified node
                 if((balls.get(i).getxPos() > a.getxBound() || balls.get(i).getxPos() < a.getX()) &&(balls.get(i).getyPos() > a.getyBound() || balls.get(i).getyPos() < a.getY())) {
                     balls.remove(i);
                 }
@@ -124,6 +134,7 @@ public class DisplayFrame extends JFrame {
 
             if(tempNode.getChildren().size() == 4) {
                 for(int i = 0; i < 4; i++) {
+                    //call it again for children
                     cleanseBalls(a.getChild(i));
                 }
             }
@@ -135,7 +146,7 @@ public class DisplayFrame extends JFrame {
          * Inserts balls into their proper node
          * @param a a node of bouncing balls
          */
-        public void insertBalls(Node<BouncingBall> a) {
+        private void insertBalls(Node<BouncingBall> a) {
             Node<BouncingBall> tempNode = a;
             ArrayList<BouncingBall> balls = quadrants.getAllTheItems();
 
@@ -157,9 +168,12 @@ public class DisplayFrame extends JFrame {
         }
 
 
-        public void doCollisionCheck(Node<BouncingBall> a) {
-            Node<BouncingBall> tempNode = a;
-            ArrayList<BouncingBall> balls = tempNode.getListOfStuff();
+        /**
+         * checks collisions within a node
+         * @param a the node to be checked
+         */
+        private void doCollisionCheck(Node<BouncingBall> a) {
+            ArrayList<BouncingBall> balls = a.getListOfStuff();
 
             for(int i = 0; i < balls.size()-1; i++) {
                 for(int j = i+1; j < balls.size(); j++) {
@@ -170,29 +184,33 @@ public class DisplayFrame extends JFrame {
         }
 
 
-        public void drawStuff(Node<BouncingBall> a, Graphics g) {
+        /**
+         * draws balls
+         * @param a a node
+         * @param g paintComponent graphics
+         */
+        private void drawStuff(Node<BouncingBall> a, Graphics g) {
 
             ArrayList<BouncingBall> balls = a.getListOfStuff();
 
-            for(int i = 0; i < balls.size(); i++ ) {
-                balls.get(i).update(clock.getElapsedTime());
-                balls.get(i).draw(g);
+            for (BouncingBall ball : balls) {
+                ball.update(clock.getElapsedTime());
+                ball.draw(g);
             }
         }
 
     }
 
+    //key listeners
     private class MyKeyListener implements KeyListener {
 
         public void keyTyped(KeyEvent e) {
         }
 
         public void keyPressed(KeyEvent e) {
-            //System.out.println("keyPressed="+KeyEvent.getKeyText(e.getKeyCode()));
 
             if (KeyEvent.getKeyText(e.getKeyCode()).equals("D")) {
                 quadrants.addItem(new BouncingBall());
-                System.out.println("Aaaa");//If 'D' is pressed
 
             } else if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {  //If ESC is pressed
                 System.out.println("Quitting!"); //close frame & quit
@@ -200,8 +218,6 @@ public class DisplayFrame extends JFrame {
 
             } else if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {
                 quadrants.remove(0);
-                System.out.println("Aaaa");//If 'D' is pressed
-
             }
         }
 
