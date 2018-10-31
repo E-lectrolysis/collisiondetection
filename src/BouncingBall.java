@@ -1,3 +1,10 @@
+/*
+ * BouncingBall.java
+ * Balls that bounce around on the screen, can collide with each other
+ * @author Eric Ke
+ * 2018/10/30
+ */
+
 import java.awt.*;
 import java.util.Random;
 

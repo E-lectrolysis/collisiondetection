@@ -1,4 +1,6 @@
 /*
+ * Main.java
+ * Launches the collision detection
  * Collision Detection
  * A Program that uses a quad tree to detect collisions
  * @author Eric Ke

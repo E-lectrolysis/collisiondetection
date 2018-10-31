@@ -1,3 +1,10 @@
+/*
+ * Quadrant.java
+ * Quad tree, used to store balls for the collision detection program
+ * @author Eric Ke
+ * 2018/10/30
+ */
+
 import java.awt.*;
 import java.util.ArrayList;
 

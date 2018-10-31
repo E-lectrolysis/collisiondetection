@@ -1,6 +1,12 @@
+/*
+ * Node.java
+ * A node in the quad tree
+ * @author Eric Ke
+ * 2018/10/30
+ */
+
 import java.awt.*;
 import java.util.ArrayList;
-
 
 public class Node<T> {
 

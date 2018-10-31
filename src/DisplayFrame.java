@@ -1,3 +1,11 @@
+/*
+ * DisplayFrame.java
+ * The collision detection program with bouncing balls, displayed graphically on the screen
+ * @author Eric Ke
+ * 2018/10/30
+ *
+ */
+
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import java.awt.Toolkit;
@@ -72,6 +80,7 @@ public class DisplayFrame extends JFrame {
          * Draws the graphics on the screen
          * @param g the graphics to draw with
          */
+        @Override
         public void paintComponent(Graphics g) {
             super.paintComponent(g); //required
             setDoubleBuffered(true);
