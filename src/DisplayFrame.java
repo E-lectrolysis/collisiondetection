@@ -151,14 +151,14 @@ public class DisplayFrame extends JFrame {
             for(int i = 0; i < balls.size(); i++) {
                 if((balls.get(i).getxPos() <= a.getxBound() && balls.get(i).getxPos() >= a.getX()) &&(balls.get(i).getyPos() <= a.getyBound() && balls.get(i).getyPos() >= a.getY())) {
                     if(!a.getListOfStuff().contains(balls.get(i))) {
-                        a.addItem(balls.get(i));
+                        a.addItem(balls.get(i)); //inserts when within boundaries, makes sure it isn't already there so it doesn't flood
                     }
                 }
             }
 
             if(a.getChildren().size() == 4) {
                 for(int i = 0; i < 4; i++) {
-                    insertBalls(a.getChild(i));
+                    insertBalls(a.getChild(i)); //if children exist, checks them for insertion too
                 }
             }
 
