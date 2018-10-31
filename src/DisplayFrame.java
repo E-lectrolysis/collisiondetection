@@ -215,7 +215,11 @@ public class DisplayFrame extends JFrame {
                 window.dispose();
 
             } else if (KeyEvent.getKeyText(e.getKeyCode()).equals("E")) {
-                quadrants.remove(0);
+                try {
+                    quadrants.remove(0);
+                } catch(Exception ex) {
+                    System.out.println("ArrayList is empty");
+                }
             }
         }
 
