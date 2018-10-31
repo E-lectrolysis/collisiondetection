@@ -148,10 +148,10 @@ public class DisplayFrame extends JFrame {
         private void insertBalls(Node<BouncingBall> a) {
             ArrayList<BouncingBall> balls = quadrants.getAllTheItems();
 
-            for(int i = 0; i < balls.size(); i++) {
-                if((balls.get(i).getxPos() <= a.getxBound() && balls.get(i).getxPos() >= a.getX()) &&(balls.get(i).getyPos() <= a.getyBound() && balls.get(i).getyPos() >= a.getY())) {
-                    if(!a.getListOfStuff().contains(balls.get(i))) {
-                        a.addItem(balls.get(i)); //inserts when within boundaries, makes sure it isn't already there so it doesn't flood
+            for (BouncingBall ball : balls) {
+                if ((ball.getxPos() <= a.getxBound() && ball.getxPos() >= a.getX()) && (ball.getyPos() <= a.getyBound() && ball.getyPos() >= a.getY())) {
+                    if (!a.getListOfStuff().contains(ball)) {
+                        a.addItem(ball); //inserts when within boundaries, makes sure it isn't already there so it doesn't flood
                     }
                 }
             }
