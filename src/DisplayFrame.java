@@ -122,7 +122,6 @@ public class DisplayFrame extends JFrame {
          * @param a a node of bouncing balls
          */
         private void cleanseBalls(Node<BouncingBall> a) {
-            Node<BouncingBall> tempNode = a;
             ArrayList<BouncingBall> balls = a.getListOfStuff();
 
             for(int i = 0; i < balls.size(); i++) {
@@ -132,7 +131,7 @@ public class DisplayFrame extends JFrame {
                 }
             }
 
-            if(tempNode.getChildren().size() == 4) {
+            if(a.getChildren().size() == 4) {
                 for(int i = 0; i < 4; i++) {
                     //call it again for children
                     cleanseBalls(a.getChild(i));
@@ -147,20 +146,19 @@ public class DisplayFrame extends JFrame {
          * @param a a node of bouncing balls
          */
         private void insertBalls(Node<BouncingBall> a) {
-            Node<BouncingBall> tempNode = a;
             ArrayList<BouncingBall> balls = quadrants.getAllTheItems();
 
             for(int i = 0; i < balls.size(); i++) {
-                if((balls.get(i).getxPos() <= tempNode.getxBound() && balls.get(i).getxPos() >= tempNode.getX()) &&(balls.get(i).getyPos() <= tempNode.getyBound() && balls.get(i).getyPos() >= tempNode.getY())) {
-                    if(!tempNode.getListOfStuff().contains(balls.get(i))) {
-                        tempNode.addItem(balls.get(i));
+                if((balls.get(i).getxPos() <= a.getxBound() && balls.get(i).getxPos() >= a.getX()) &&(balls.get(i).getyPos() <= a.getyBound() && balls.get(i).getyPos() >= a.getY())) {
+                    if(!a.getListOfStuff().contains(balls.get(i))) {
+                        a.addItem(balls.get(i));
                     }
                 }
             }
 
             if(a.getChildren().size() == 4) {
                 for(int i = 0; i < 4; i++) {
-                    insertBalls(tempNode.getChild(i));
+                    insertBalls(a.getChild(i));
                 }
             }
 
